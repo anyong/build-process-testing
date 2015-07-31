@@ -4,7 +4,7 @@ class Foo extends React.Component {
     render () {
         return (
             <div>
-                Hello, React!
+                Hello, Reacts!
             </div>
         );
     }

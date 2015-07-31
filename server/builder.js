@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var webpackConfig = require('../webpack.config.js');
+var webpackConfig = require('../webpack');
 var wpClientConfig = webpackConfig.client;
 var wpServerConfig = webpackConfig.server;
 var serverCompiler;
@@ -9,17 +9,15 @@ var clientServer;
 
 function clearModuleCache() {
     for (var module in require.cache) {
-        if (require.cache.hasOwnProperty(module)) {
-            if (!~module.indexOf('/node_modules/')) {
-                delete require.cache[module];
-            }
+        if (!~module.indexOf('/node_modules/')) {
+            delete require.cache[module];
         }
     }
 }
 
 serverCompiler = webpack(wpServerConfig);
 
-serverCompiler.watch({}, function (err) {
+serverCompiler.watch({}, function (err, stats) {
     if (err) {
         console.error(err);
         return;
